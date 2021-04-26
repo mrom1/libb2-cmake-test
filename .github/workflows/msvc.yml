@@ -40,6 +40,6 @@ jobs:
       - name: Run MSBuild
         id: run_msbuild
         working-directory: $
-        run: msbuild.exe .\build\libb2-cmake-test.sln
+        run: msbuild.exe build\libb2-cmake-test.sln
         
       
