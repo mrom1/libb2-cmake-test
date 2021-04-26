@@ -29,11 +29,17 @@ jobs:
       - name: Setup MSBuild and add to PATH
         uses: microsoft/setup-msbuild@v1.0.2
         id: setup_msbuild
-
+      
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.8
+      
+      - name: cmake configuration
+        run: cmake . -Bbuild
+      
       # Runs MSBuild
       - name: Run MSBuild
         id: run_msbuild
         working-directory: $
-        run: msbuild .\libb2-cmake-test.sln
+        run: msbuild .\build\libb2-cmake-test.sln
         
       
