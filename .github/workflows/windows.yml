@@ -33,13 +33,18 @@ jobs:
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.8
       
-      - name: cmake configuration
-        run: cmake . -Bbuild
+      # Configure CMake
+      - name: Configure CMake
+        run: cmake -S. -Bbuild
       
-      # Runs MSBuild
-      - name: Run MSBuild
-        id: run_msbuild
-        working-directory: $
-        run: msbuild.exe build\libb2-cmake-test.sln
+      # Runs Build
+      - name: Build
+        run: cmake --build build
+
+      # Test
+      - name: Test
+        run: |
+          cd build
+          ctest --output-on-failure --verbose
         
       

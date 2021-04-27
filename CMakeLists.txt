@@ -14,4 +14,5 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 ######################################################################################
 ## Add tests
 ######################################################################################
+enable_testing()
 add_subdirectory(test)
