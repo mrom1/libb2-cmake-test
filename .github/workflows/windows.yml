@@ -1,6 +1,6 @@
-# Workflow for msvc
+# Workflow for windows
 
-name: msvc
+name: windows-build
 
 # Controls when the action will run. 
 on:

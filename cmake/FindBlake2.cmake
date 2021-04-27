@@ -37,14 +37,16 @@ set(BLAKE2_INCLUDES "${source_dir}/src")
     
 ExternalProject_Get_Property(libb2_SRC binary_dir)
 
-if(WIN32)
-    set(BLAKE2_LIBRARY ${binary_dir}/lib/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}libb2${LIBSUFFIX})
-endif(WIN32)
+add_library(libb2 STATIC IMPORTED)
 
-if(UNIX)
+if(MSVC)
+    set(BLAKE2_LIBRARY_DEBUG ${binary_dir}/lib/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}libb2${LIBSUFFIX})
+    set(BLAKE2_LIBRARY_RELEASE ${binary_dir}/lib/Release/${CMAKE_FIND_LIBRARY_PREFIXES}libb2${LIBSUFFIX})
+    set_target_properties(libb2 PROPERTIES IMPORTED_LOCATION_DEBUG "${BLAKE2_LIBRARY_DEBUG}")
+    set_target_properties(libb2 PROPERTIES IMPORTED_LOCATION_RELEASE "${BLAKE2_LIBRARY_RELEASE}")
+else()
     set(BLAKE2_LIBRARY ${binary_dir}/src/.libs/${CMAKE_FIND_LIBRARY_PREFIXES}b2${LIBSUFFIX})
-endif(UNIX)
+    set_target_properties(libb2 PROPERTIES IMPORTED_LOCATION "${BLAKE2_LIBRARY}")
+endif(MSVC)
 
-add_library(libb2 SHARED IMPORTED)
 
-set_target_properties(libb2 PROPERTIES IMPORTED_LOCATION "${BLAKE2_LIBRARY}")
